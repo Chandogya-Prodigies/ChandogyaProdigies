@@ -48,11 +48,23 @@ export default function Navbar() {
 
             {resourcesOpen && (
               <div className="absolute top-8 left-0 bg-white shadow-lg rounded-md p-4 w-56 space-y-2 text-sm">
-                <Link href="/blogs">Blogs</Link>
-                <Link href="/news">News</Link>
-                <Link href="/faqs">FAQs</Link>
-                <Link href="/partnerships">School & Partnerships</Link>
-                <Link href="/testimonials">Testimonials</Link>
+                <ul>
+                  <li>
+                    <Link href="/blogs">Blogs</Link>
+                  </li>
+                  <li>
+                    <Link href="/news">News</Link>
+                  </li>
+                  <li>
+                    <Link href="/partnerships">School & Partnerships</Link>
+                  </li>
+                  <li>
+                    <Link href="/faqs">FAQs</Link>
+                  </li>
+                  <li>
+                    <Link href="/testimonials">Testimonials</Link>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
