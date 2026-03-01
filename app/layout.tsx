@@ -1,6 +1,6 @@
-import Navbar from "./components/Navbar";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
-import SplashWrapper from "@/app/components/SplashWrapper";
+import SplashWrapper from "@/components/SplashWrapper";
 
 export default function RootLayout({
   children,
@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <SplashWrapper>{children}</SplashWrapper>
+        <SplashWrapper> {children}</SplashWrapper>
       </body>
     </html>
   );
