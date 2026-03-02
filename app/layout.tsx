@@ -10,8 +10,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <SplashWrapper> {children}</SplashWrapper>
+        <SplashWrapper>
+          {" "}
+          <Navbar />
+          {children}
+        </SplashWrapper>
       </body>
     </html>
   );
