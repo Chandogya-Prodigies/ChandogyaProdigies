@@ -59,7 +59,7 @@ export default function Navbar() {
               }`}
             >
               {link.name}
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[#F29E38] group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-[#F29E38] group-hover:w-full transition-all duration-300"></span>
             </Link>
           ))}
 
@@ -73,7 +73,7 @@ export default function Navbar() {
             </button>
 
             {showPrograms && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-[900px] bg-[#F5F1E8] shadow-xl rounded-xl p-8 border border-[#A9883A]/20">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-225 bg-[#F5F1E8] shadow-xl rounded-xl p-8 border border-[#A9883A]/20">
                 <div className="grid grid-cols-2 gap-8">
                   {/* Column 1 */}
                   <div>
@@ -139,7 +139,7 @@ export default function Navbar() {
             </button>
 
             {showResources && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-[900px] bg-[#F5F1E8] shadow-xl rounded-xl p-8 border border-[#A9883A]/20">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-225 bg-[#F5F1E8] shadow-xl rounded-xl p-8 border border-[#A9883A]/20">
                 <div className="grid grid-cols-2 ">
                   {/* Column 1 */}
                   <div>

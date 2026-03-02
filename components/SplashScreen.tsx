@@ -24,7 +24,7 @@ export default function SplashScreen({ onFinish }: Props) {
 
   return (
     <div
-      className={`fixed inset-0 z-9999 flex items-center justify-center bg-[#F7F2EA] transition-all duration-700 ${
+      className={`fixed inset-0 z-9999 flex items-center justify-center bg-[#A9883A] transition-all duration-700 ${
         animateOut ? "scale-150 opacity-0" : "scale-100 opacity-100"
       }`}
     >
