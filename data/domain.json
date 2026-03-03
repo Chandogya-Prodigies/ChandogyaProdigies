@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Vedic Mathematics",
+    "description": "Sharpen mental agility through structured number mastery.",
+    "color": "bg-[#A9883A]",
+    "textColor": "text-white",
+    "icon": "math"
+  },
+  {
+    "id": 2,
+    "title": "Character Development",
+    "description": "Build discipline, leadership and moral clarity.",
+    "color": "bg-[#F29E38]",
+    "textColor": "text-[#083D40]",
+    "icon": "character"
+  },
+  {
+    "id": 3,
+    "title": "Public Speaking",
+    "description": "Enhance confidence and communication excellence.",
+    "color": "bg-[#0F5C60]",
+    "textColor": "text-white",
+    "icon": "speaking"
+  },
+  {
+    "id": 4,
+    "title": "Logical Reasoning",
+    "description": "Develop structured thinking and analytical depth.",
+    "color": "bg-[#E9E2D5]",
+    "textColor": "text-[#083D40]",
+    "icon": "logic"
+  }
+]

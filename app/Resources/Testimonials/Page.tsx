@@ -1,9 +1,7 @@
-import AdBannerFull from "@/components/adbanner";
-
 export default function testimonialPage() {
   return (
-    <>
-      <AdBannerFull />
-    </>
+    <main className="p-10">
+      <h1 className="text-3xl font-bold">testimonial Page</h1>
+    </main>
   );
 }
