@@ -23,9 +23,9 @@ export default function DomainCard({ domain }: DomainCardProps) {
           viewBox="0 0 24 24"
           fill="none"
           stroke="#0F5C60"
-          stroke-width="1"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-slack-icon lucide-slack"
         >
           <rect width="3" height="8" x="13" y="2" rx="1.5" />
