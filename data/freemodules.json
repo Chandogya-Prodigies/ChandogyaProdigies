@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Vedic Math Tricks",
+    "description": "Learn fast mental calculations used in ancient Gurukul systems.",
+    "duration": "12 min",
+    "level": "Beginner",
+    "thumbnail": "/modules/math.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Memory Techniques",
+    "description": "Boost focus and recall using traditional learning techniques.",
+    "duration": "15 min",
+    "level": "Beginner",
+    "thumbnail": "/modules/memory.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Public Speaking Basics",
+    "description": "Build confidence and express ideas clearly.",
+    "duration": "10 min",
+    "level": "Starter",
+    "thumbnail": "/modules/speaking.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Logical Thinking",
+    "description": "Fun puzzles to sharpen reasoning skills.",
+    "duration": "14 min",
+    "level": "Starter",
+    "thumbnail": "/modules/logic.jpg"
+  }
+]
