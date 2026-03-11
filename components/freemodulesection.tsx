@@ -1,6 +1,6 @@
 "use client";
 
-import modules from "@/data/freeModules.json";
+import modules from "@/data/freemodules.json";
 import ModuleCard from "@/components/modulecard";
 
 export default function FreeModulesSection() {

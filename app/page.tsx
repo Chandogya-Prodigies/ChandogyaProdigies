@@ -1,4 +1,5 @@
 import AdBannerFull from "@/components/adbanner";
+import FreeModulesSection from "@/components/freemodulesection";
 import Hero from "@/components/herosection";
 import LearningDomainsSection from "@/components/learningdomainsection";
 import MentorSection from "@/components/mentor";
@@ -8,6 +9,7 @@ export default function HomePage() {
     <>
       <Hero />
       <LearningDomainsSection />
+      <FreeModulesSection />
       <MentorSection />
     </>
   );

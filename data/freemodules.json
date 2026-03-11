@@ -5,7 +5,7 @@
     "description": "Learn fast mental calculations used in ancient Gurukul systems.",
     "duration": "12 min",
     "level": "Beginner",
-    "thumbnail": "/modules/math.jpg"
+    "thumbnail": "/courseimg1.webp"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "description": "Boost focus and recall using traditional learning techniques.",
     "duration": "15 min",
     "level": "Beginner",
-    "thumbnail": "/modules/memory.jpg"
+    "thumbnail": "/courseimg2.webp"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "description": "Build confidence and express ideas clearly.",
     "duration": "10 min",
     "level": "Starter",
-    "thumbnail": "/modules/speaking.jpg"
+    "thumbnail": "/image3.png"
   },
   {
     "id": 4,
@@ -29,6 +29,6 @@
     "description": "Fun puzzles to sharpen reasoning skills.",
     "duration": "14 min",
     "level": "Starter",
-    "thumbnail": "/modules/logic.jpg"
+    "thumbnail": "/star.png"
   }
 ]
