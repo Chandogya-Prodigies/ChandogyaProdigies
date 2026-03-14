@@ -39,7 +39,7 @@ export default function AdBannerFull() {
   const current = announcements[index];
 
   return (
-    <section className="w-full bg-[#f0e2c0] border-b border-[#A9883A]/30 mt-17 overflow-hidden">
+    <section className="w-full bg-[#f0e2c0] border-b border-[#A9883A]/30  overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 py-8 md:py-10">
         <AnimatePresence mode="wait">
           <motion.div

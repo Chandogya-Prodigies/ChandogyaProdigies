@@ -9,6 +9,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <AdBannerFull />
       <LearningDomainsSection />
       <FreeModulesSection />
       <MentorSection />
