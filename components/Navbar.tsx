@@ -216,7 +216,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/login/register"
+            href="/login/register.tsx"
             className="bg-[#F29E38] text-white px-5 py-2 rounded-full hover:bg-[#A9883A] transition shadow-md"
           >
             Enroll Now

@@ -1,34 +1,34 @@
 [
   {
     "id": 1,
-    "title": "Vedic Mathematics",
-    "description": "Sharpen mental agility through structured number mastery.",
+    "title": "Thinking (Vivek Buddhi)",
+    "description": "Moving from memorization to independent thought and evaluating consequences.",
     "color": "bg-[#A9883A]",
     "textColor": "text-white",
-    "icon": "math"
+    "icon": "thinking"
   },
   {
     "id": 2,
-    "title": "Character Development",
-    "description": "Build discipline, leadership and moral clarity.",
+    "title": "Communication (Vak Shakti)",
+    "description": "Mastering clear, confident expression and the art of active listening.",
     "color": "bg-[#F29E38]",
     "textColor": "text-[#083D40]",
-    "icon": "character"
+    "icon": "communication"
   },
   {
     "id": 3,
-    "title": "Public Speaking",
-    "description": "Enhance confidence and communication excellence.",
+    "title": "Technology (Digital Dharma)",
+    "description": "Developing digital discipline and understanding AI as a tool rather than dependency.",
     "color": "bg-[#0F5C60]",
     "textColor": "text-white",
-    "icon": "speaking"
+    "icon": "technology"
   },
   {
     "id": 4,
-    "title": "Logical Reasoning",
-    "description": "Develop structured thinking and analytical depth.",
+    "title": "Life Skills (Atma & Artha Bodh)",
+    "description": "Building emotional resilience and ethical financial management.",
     "color": "bg-[#E9E2D5]",
     "textColor": "text-[#083D40]",
-    "icon": "logic"
+    "icon": "life"
   }
 ]

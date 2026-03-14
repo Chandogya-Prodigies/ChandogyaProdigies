@@ -1,5 +1,7 @@
 "use client";
 
+import { LucideIcon } from "lucide-react";
+
 interface DomainCardProps {
   domain: {
     title: string;
@@ -7,25 +9,27 @@ interface DomainCardProps {
     color: string;
     textColor: string;
   };
+  Icon: LucideIcon;
 }
 
-export default function DomainCard({ domain }: DomainCardProps) {
+export default function DomainCard({ domain, Icon }: DomainCardProps) {
   return (
     <div
       className={`relative group rounded-3xl p-8 overflow-hidden ${domain.color} ${domain.textColor} transition-all duration-300 hover:-translate-y-2`}
     >
-      {/* Cut Corner Effect */}
+      {/* Cut Corner */}
+
       <div className="absolute top-0 right-0 w-20 h-20 bg-[#F5F1E8] rounded-bl-3xl flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="68"
-          height="68"
+          width="72"
+          height="72"
           viewBox="0 0 24 24"
           fill="none"
           stroke="#0F5C60"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
           className="lucide lucide-slack-icon lucide-slack"
         >
           <rect width="3" height="8" x="13" y="2" rx="1.5" />
@@ -39,12 +43,14 @@ export default function DomainCard({ domain }: DomainCardProps) {
         </svg>
       </div>
 
-      {/* Icon */}
-      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black mb-6">
-        ⬤
+      {/* Icon Circle */}
+
+      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6">
+        <Icon className="w-6 h-6 text-black" />
       </div>
 
       {/* Content */}
+
       <h3 className="text-xl font-semibold mb-4">{domain.title}</h3>
 
       <p className="text-sm opacity-80 leading-relaxed">{domain.description}</p>
