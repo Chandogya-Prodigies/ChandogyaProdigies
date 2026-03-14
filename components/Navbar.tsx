@@ -32,8 +32,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#F5F1E8]/90 backdrop-blur-md shadow-md py-3"
-          : "bg-[#083D40] py-2"
+          ? "bg-[#F5F1E8]/90 backdrop-blur-md shadow-md py-3 text-black"
+          : "bg-[#083D40] py-2 text-white"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -49,7 +49,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8 text-[#F5F1E8] font-medium">
+        <nav className="hidden lg:flex items-center gap-8  font-medium">
           {navLinks.map((link) => (
             <Link
               key={link.name}
