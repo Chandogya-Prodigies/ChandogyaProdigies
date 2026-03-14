@@ -38,7 +38,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/page.tsx" className=" tracking-wide relative group">
+        <Link href="/" className=" tracking-wide relative group">
           <Image
             src="/logobg.png"
             alt="Resources"
@@ -216,7 +216,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/register"
+            href="/login/register"
             className="bg-[#F29E38] text-white px-5 py-2 rounded-full hover:bg-[#A9883A] transition shadow-md"
           >
             Enroll Now
