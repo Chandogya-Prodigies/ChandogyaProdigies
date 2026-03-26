@@ -8,19 +8,19 @@ const stories = [
     id: 1,
     name: "Aarav Sharma",
     text: "This platform changed how I think and learn. It's not just courses, it's a journey.",
-    image: "/s1.jpg",
+    image: "/girlimage.jpg",
   },
   {
     id: 2,
     name: "Meera Joshi",
     text: "I gained confidence in communication and real-world skills.",
-    image: "/s2.jpg",
+    image: "/girlimage.jpg",
   },
   {
     id: 3,
     name: "Rohan Verma",
     text: "The Gurukul approach feels personal and deeply meaningful.",
-    image: "/s3.jpg",
+    image: "/girlimage.jpg",
   },
 ];
 
