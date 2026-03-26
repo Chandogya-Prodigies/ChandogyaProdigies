@@ -24,7 +24,7 @@ const stories = [
   },
 ];
 
-export default function DventuresSection() {
+export default function Testimonial() {
   const [current, setCurrent] = useState(0);
 
   const nextSlide = () => {
@@ -32,16 +32,12 @@ export default function DventuresSection() {
   };
 
   const prevSlide = () => {
-    setCurrent((prev) =>
-      prev === 0 ? stories.length - 1 : prev - 1
-    );
+    setCurrent((prev) => (prev === 0 ? stories.length - 1 : prev - 1));
   };
 
   return (
     <section className="py-24 bg-[#F5F1E8] overflow-hidden">
-
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 items-center">
-
         {/* LEFT SIDEBAR */}
 
         <div>
@@ -78,24 +74,17 @@ export default function DventuresSection() {
         {/* SLIDER */}
 
         <div className="md:col-span-2 overflow-hidden">
-
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
               transform: `translateX(-${current * 100}%)`,
             }}
           >
-
             {stories.map((story) => (
-              <div
-                key={story.id}
-                className="min-w-full flex justify-center"
-              >
-
+              <div key={story.id} className="min-w-full flex justify-center">
                 {/* CARD */}
 
                 <div className="relative w-[320px]">
-
                   {/* IMAGE */}
 
                   <img
@@ -107,27 +96,18 @@ export default function DventuresSection() {
                   {/* QUOTE BOX */}
 
                   <div className="absolute -bottom-10 left-6 bg-white p-6 rounded-xl shadow-xl w-[85%]">
-
-                    <p className="text-sm text-gray-700">
-                      "{story.text}"
-                    </p>
+                    <p className="text-sm text-gray-700">"{story.text}"</p>
 
                     <p className="mt-3 text-sm font-semibold text-[#083D40]">
                       — {story.name}
                     </p>
-
                   </div>
-
                 </div>
-
               </div>
             ))}
-
           </div>
         </div>
-
       </div>
-
     </section>
   );
 }

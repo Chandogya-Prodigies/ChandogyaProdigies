@@ -4,6 +4,7 @@ import FreeModulesSection from "@/components/freemodulesection";
 import Hero from "@/components/herosection";
 import LearningDomainsSection from "@/components/learningdomainsection";
 import MentorSection from "@/components/mentor";
+import Testimonial from "@/components/testimonial";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <FreeModulesSection />
       <MentorSection />
       <CourseSection />
+      <Testimonial />
     </>
   );
 }
