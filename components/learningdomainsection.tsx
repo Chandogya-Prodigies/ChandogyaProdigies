@@ -34,11 +34,9 @@ export default function LearningDomainsSection() {
 
         <div className="mt-16">
           {" "}
-          <Link href="/modules">
-            <button className="text-[#0F5C60] font-medium hover:underline">
-              View All Programs →
-            </button>
-          </Link>
+          <button className="text-[#0F5C60] font-medium hover:underline">
+            <Link href="#"> View All Programs →</Link>
+          </button>
         </div>
       </div>
     </section>
