@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import NewsletterForm from "@/component/newsletter-form";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -192,21 +193,7 @@ export default function Footer() {
               guidance.
             </p>
 
-            <form className="mt-5 flex max-w-md items-center rounded-full border border-[#315C45]/16 bg-white/78 px-4 py-2 shadow-[0_18px_48px_rgba(49,92,69,0.12)] dark:border-white/14 dark:bg-white/8 dark:shadow-[0_18px_48px_rgba(0,0,0,0.16)]">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="min-w-0 flex-1 bg-transparent px-2 text-sm text-[#21382C] outline-none placeholder:text-[#6C7A70]/55 dark:text-[#FFF9EE] dark:placeholder:text-[#D8C9B7]/55"
-              />
-
-              <button
-                type="submit"
-                aria-label="Subscribe"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#315C45] text-white transition hover:bg-[#C96F1A] dark:bg-[#D4A72C] dark:text-[#160C07] dark:hover:bg-[#F8EBCF]"
-              >
-                <ArrowRight className="h-5 w-5" />
-              </button>
-            </form>
+            <NewsletterForm source="footer" />
           </div>
         </div>
 

@@ -56,7 +56,7 @@ export default function MissionSection() {
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="relative flex min-h-[360px] items-center justify-center lg:min-h-[470px]">
           <p className="absolute left-1/2 top-0 z-20 -translate-x-1/2 whitespace-nowrap font-serif text-2xl font-semibold tracking-wide text-[#2E2118] sm:text-3xl dark:text-[#D4A72C]">
-            ज्ञान • संस्कार • कौशल
+            {"\u091c\u094d\u091e\u093e\u0928 \u2022 \u0938\u0902\u0938\u094d\u0915\u093e\u0930 \u2022 \u0915\u094c\u0936\u0932"}
           </p>
 
           <motion.div

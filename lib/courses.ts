@@ -19,6 +19,13 @@ export type Course = {
   rating: string;
   reviews: string;
   price: string;
+  priceAmountPaise?: number;
+  category?: string;
+  ageGroup?: string;
+  difficulty?: string;
+  discountLabel?: string;
+  previewVideoUrl?: string;
+  featured?: boolean;
   image: string;
   description: string;
   lessons: Lesson[];

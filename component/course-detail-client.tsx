@@ -20,10 +20,133 @@ type CourseDetailClientProps = {
   course: Course;
 };
 
+type RazorpayCheckoutResponse = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+};
+
+type RazorpayConstructor = new (options: {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayCheckoutResponse) => void;
+  theme: { color: string };
+}) => { open: () => void };
+
+declare global {
+  interface Window {
+    Razorpay?: RazorpayConstructor;
+  }
+}
+
+function loadRazorpayScript() {
+  return new Promise<boolean>((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function CourseDetailClient({ course }: CourseDetailClientProps) {
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
   const [openLessonIndex, setOpenLessonIndex] = useState(0);
+  const [enrollmentMessage, setEnrollmentMessage] = useState("");
+  const [enrolling, setEnrolling] = useState(false);
   const activeLesson = course.lessons[activeLessonIndex];
+
+  const handleEnroll = async () => {
+    setEnrolling(true);
+    setEnrollmentMessage("");
+
+    try {
+      const response = await fetch("/api/enrollments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ courseSlug: course.slug }),
+      });
+      const result = (await response.json()) as {
+        error?: string;
+        enrollment?: unknown;
+        order?: { id: string; amountPaise: number; currency: string };
+        providerOrder?: { id: string; amount: number; currency: string };
+        razorpayKeyId?: string;
+      };
+
+      if (response.status === 401) {
+        setEnrollmentMessage("Please login first, then enroll again.");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(result.error ?? "Enrollment could not be completed.");
+      }
+
+      if (course.type === "free") {
+        setEnrollmentMessage("Enrollment confirmed.");
+        return;
+      }
+
+      if (!result.order || !result.providerOrder || !result.razorpayKeyId) {
+        throw new Error("Payment order could not be started.");
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+
+      if (!scriptLoaded || !window.Razorpay) {
+        throw new Error("Razorpay checkout could not be loaded.");
+      }
+
+      const checkout = new window.Razorpay({
+        key: result.razorpayKeyId,
+        amount: result.providerOrder.amount,
+        currency: result.providerOrder.currency,
+        name: "Chandogya Prodigies",
+        description: course.title,
+        order_id: result.providerOrder.id,
+        theme: { color: "#315C45" },
+        handler: async (paymentResponse) => {
+          const verificationResponse = await fetch("/api/payments/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              paymentOrderId: result.order?.id,
+              ...paymentResponse,
+            }),
+          });
+
+          if (!verificationResponse.ok) {
+          setEnrollmentMessage("Payment verification failed.");
+            return;
+          }
+
+          setEnrollmentMessage("Payment verified. Enrollment confirmed.");
+        },
+      });
+
+      checkout.open();
+    } catch (error) {
+      setEnrollmentMessage(
+        error instanceof Error ? error.message : "Enrollment could not be completed.",
+      );
+    } finally {
+      setEnrolling(false);
+    }
+  };
 
   return (
     <main className="relative overflow-hidden bg-[#F6A143] px-5 py-8 text-[#15110D] sm:px-8 dark:bg-[#160C07] dark:text-[#F8EBCF]">
@@ -196,12 +319,33 @@ export default function CourseDetailClient({ course }: CourseDetailClientProps) 
                 Enroll or speak to our team to understand whether this is the
                 right path for your learner.
               </p>
+              <button
+                type="button"
+                onClick={handleEnroll}
+                disabled={enrolling}
+                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#D4A72C] px-5 py-3 text-sm font-semibold text-[#160C07] transition hover:bg-[#FFE8A8] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {enrolling ? "Processing..." : "Enroll Now"}
+              </button>
               <Link
                 href="/contact"
-                className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#FFF8E6] px-5 py-3 text-sm font-semibold text-[#064B45] transition hover:bg-white"
+                className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-[#FFF8E6] px-5 py-3 text-sm font-semibold text-[#064B45] transition hover:bg-white"
               >
                 Talk to a mentor
               </Link>
+              {enrollmentMessage ? (
+                <p className="mt-4 rounded-2xl bg-white/10 px-4 py-3 text-sm leading-6 text-white/82">
+                  {enrollmentMessage}
+                  {enrollmentMessage.includes("confirmed") ? (
+                    <Link
+                      href="/dashboard"
+                      className="ml-2 font-semibold text-[#FFE8A8] underline underline-offset-4"
+                    >
+                      View dashboard
+                    </Link>
+                  ) : null}
+                </p>
+              ) : null}
             </div>
           </aside>
         </div>

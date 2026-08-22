@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ThemeProvider from "@/component/theme-provider";
+import AuthSessionProvider from "@/component/auth-session-provider";
 import "./globals.css";
 import Navbar from "@/component/navbar";
 import Footer from "@/component/ui/footer";
@@ -17,11 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <AuthSessionProvider>
+          <ThemeProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

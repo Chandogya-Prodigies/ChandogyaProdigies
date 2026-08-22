@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { blogPosts } from "@/lib/blogs";
+import NewsletterForm from "@/component/newsletter-form";
 
 const categories = ["Parent Guide", "Learning Model", "Communication", "Practice"];
 
@@ -112,20 +112,7 @@ export default function BlogsPage() {
               Receive curated learning notes, parenting ideas and skill-building
               resources directly in your inbox.
             </p>
-            <form className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="h-12 flex-1 rounded-full border border-white/28 bg-transparent px-5 text-sm text-white outline-none placeholder:text-white/42 focus:border-[#D4A72C]"
-              />
-              <button
-                type="submit"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#D4A72C] px-7 text-sm font-semibold uppercase tracking-[0.12em] text-[#160C07]"
-              >
-                Subscribe
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </form>
+            <NewsletterForm source="blogs" variant="dark" />
           </div>
         </div>
       </section>

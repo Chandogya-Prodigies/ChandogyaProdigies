@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Eye, LockKeyhole, Mail } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
 
 type LoginStage = "intro" | "welcome" | "form";
 
@@ -11,6 +12,7 @@ export default function LoginExperience() {
   const [stage, setStage] = useState<LoginStage>("intro");
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setStage("welcome"), 1700);
@@ -18,9 +20,30 @@ export default function LoginExperience() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setMessage("Login preview is ready. We can connect real authentication next.");
+    setSubmitting(true);
+    setMessage("");
+
+    const formData = new FormData(event.currentTarget);
+    const identifier = String(formData.get("identifier") ?? "");
+    const password = String(formData.get("password") ?? "");
+
+    const response = await signIn("credentials", {
+      identifier,
+      password,
+      redirect: false,
+      callbackUrl: "/dashboard",
+    });
+
+    setSubmitting(false);
+
+    if (response?.ok) {
+      window.location.href = response.url ?? "/dashboard";
+      return;
+    }
+
+    setMessage("Invalid email/username or password.");
   };
 
   const isFormStage = stage === "form";
@@ -168,6 +191,7 @@ export default function LoginExperience() {
                   <span className="flex h-13 items-center gap-3 rounded-2xl border border-[#E0D2C3] bg-white px-4 transition focus-within:border-[#F46A13] dark:border-[#D4A72C]/16 dark:bg-[#160C07]">
                     <Mail className="h-5 w-5 text-[#C18A4A]" />
                     <input
+                      name="identifier"
                       type="text"
                       required
                       placeholder="your email or username"
@@ -181,6 +205,7 @@ export default function LoginExperience() {
                   <span className="flex h-13 items-center gap-3 rounded-2xl border border-[#E0D2C3] bg-white px-4 transition focus-within:border-[#F46A13] dark:border-[#D4A72C]/16 dark:bg-[#160C07]">
                     <LockKeyhole className="h-5 w-5 text-[#C18A4A]" />
                     <input
+                      name="password"
                       type={showPassword ? "text" : "password"}
                       required
                       placeholder="enter password"
@@ -208,7 +233,7 @@ export default function LoginExperience() {
                     Remember me
                   </label>
                   <Link
-                    href="/contact"
+                    href="/forgot-password"
                     className="font-semibold text-[#C18A4A] transition hover:text-[#F46A13] dark:text-[#D4A72C]"
                   >
                     Forgot password?
@@ -217,9 +242,10 @@ export default function LoginExperience() {
 
                 <button
                   type="submit"
-                  className="mt-1 flex h-13 items-center justify-center gap-2 rounded-full bg-[#F46A13] text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_28px_rgba(244,106,19,0.28)] transition hover:bg-[#DB5D10]"
+                  disabled={submitting}
+                  className="mt-1 flex h-13 items-center justify-center gap-2 rounded-full bg-[#F46A13] text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_28px_rgba(244,106,19,0.28)] transition hover:bg-[#DB5D10] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Connect
+                  {submitting ? "Connecting..." : "Connect"}
                   <ArrowRight className="h-4 w-4" />
                 </button>
 
@@ -228,6 +254,26 @@ export default function LoginExperience() {
                     {message}
                   </p>
                 ) : null}
+
+                <p className="text-center text-sm text-[#715342] dark:text-[#CDBB9E]">
+                  New here?{" "}
+                  <Link
+                    href="/signup"
+                    className="font-semibold text-[#C18A4A] transition hover:text-[#F46A13] dark:text-[#D4A72C]"
+                  >
+                    Create an account
+                  </Link>
+                </p>
+
+                <p className="text-center text-sm text-[#715342] dark:text-[#CDBB9E]">
+                  Admin team?{" "}
+                  <Link
+                    href="/admin/login"
+                    className="font-semibold text-[#315C45] transition hover:text-[#F46A13] dark:text-[#D4A72C]"
+                  >
+                    Open admin login
+                  </Link>
+                </p>
               </form>
             </div>
           </div>

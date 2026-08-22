@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chandogya Prodigies
 
-## Getting Started
+Gurukul-inspired learning platform built with Next.js, Prisma, NextAuth, and Razorpay.
 
-First, run the development server:
+## Local Setup
 
 ```bash
+npm install
+npm run db:setup
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Default local admin:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```txt
+Email: admin@chandogyaprodigies.com
+Password: Admin@12345
+```
 
-## Learn More
+Override those with `ADMIN_EMAIL` and `ADMIN_PASSWORD` before running `npm run db:setup`.
 
-To learn more about Next.js, take a look at the following resources:
+## Required Environment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy `.env.example` to `.env` and set:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```txt
+DATABASE_URL="file:./prisma/dev.db"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="replace-with-a-long-random-secret"
+RAZORPAY_KEY_ID=""
+RAZORPAY_KEY_SECRET=""
+NEXT_PUBLIC_RAZORPAY_KEY_ID=""
+```
 
-## Deploy on Vercel
+For production:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```txt
+NEXTAUTH_URL="https://your-domain.com"
+NEXTAUTH_SECRET="use-a-long-generated-secret"
+DATABASE_URL="your-production-database-url"
+RAZORPAY_KEY_ID="rzp_live_..."
+RAZORPAY_KEY_SECRET="..."
+NEXT_PUBLIC_RAZORPAY_KEY_ID="rzp_live_..."
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database
+
+The current local database is SQLite through Prisma and `better-sqlite3`.
+
+Useful commands:
+
+```bash
+npm run db:generate
+npm run db:bootstrap
+npm run db:seed:admin
+npm run db:seed:courses
+npm run db:setup
+```
+
+`npm run db:setup` runs all database setup steps in order.
+
+For production scale, move from local SQLite to a hosted database before launch. The Prisma schema already includes users, courses, lessons, contact messages, newsletter subscribers, enrollments, payment orders, and password reset tokens.
+
+## Auth And Admin
+
+- `/signup` creates student accounts.
+- `/login` uses email or username credentials.
+- `/forgot-password` creates a secure reset token.
+- `/reset-password` updates the password with a valid token.
+- `/dashboard` shows enrolled courses.
+- `/admin` and `/admin/courses` require an admin session.
+
+Password reset email delivery is not connected yet. The reset request API returns a local reset link for development. Connect SMTP or a transactional email provider before production launch.
+
+## Payments
+
+Paid course checkout is wired through Razorpay order creation and signature verification. Set Razorpay keys before testing paid enrollments.
+
+Free course enrollment works without Razorpay.
+
+## Verification
+
+```bash
+npm run lint
+npm run build
+```
+
+Run both before deployment.

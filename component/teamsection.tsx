@@ -2,12 +2,29 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { guides } from "@/lib/guides";
 
+const guideTabs = [
+  { label: "Our best team", value: "team" },
+  { label: "Our Educators", value: "educators" },
+  { label: "Our Partnerships", value: "partnerships" },
+] as const;
+
+type GuideTab = (typeof guideTabs)[number]["value"];
+
 export default function TeamSection() {
+  const [activeTab, setActiveTab] = useState<GuideTab>("team");
+  const visibleGuides = guides.filter((guide) => guide.category === activeTab);
+  const activeTabLabel =
+    guideTabs.find((tab) => tab.value === activeTab)?.label ?? "Our guides";
+
   return (
-    <section className="relative overflow-hidden bg-[#F6BE45] py-16 text-black dark:bg-[#160C07] dark:text-[#F8EBCF]">
+    <section
+      id="guides"
+      className="relative overflow-hidden bg-[#F6BE45] py-16 text-black dark:bg-[#160C07] dark:text-[#F8EBCF]"
+    >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,248,224,0.45),transparent_28%),radial-gradient(circle_at_86%_78%,rgba(196,74,32,0.18),transparent_30%),linear-gradient(135deg,#F8D86B_0%,#F6BE45_48%,#EBA13D_100%)] dark:bg-[radial-gradient(circle_at_20%_10%,rgba(212,167,44,0.16),transparent_30%),linear-gradient(135deg,#160C07_0%,#21130C_58%,#132118_100%)]" />
       <Image
         src="/images/leaves.png"
@@ -35,22 +52,26 @@ export default function TeamSection() {
 
         <div className="mt-10 rounded-[28px] border border-white/45 bg-[#F8DF98]/82 px-5 py-7 shadow-[0_20px_45px_rgba(84,47,12,0.12)] backdrop-blur-sm sm:px-7 lg:px-8 dark:border-[#D4A72C]/20 dark:bg-[#24150D]/82">
           <div className="mb-8 flex flex-wrap items-center justify-center gap-2 rounded-full border border-black/10 bg-white/40 p-2 shadow-inner sm:mx-auto sm:w-fit dark:border-[#D4A72C]/20 dark:bg-white/5">
-            <button className="rounded-full bg-[#315C45] px-5 py-2.5 text-sm font-semibold text-[#FFF8E6] shadow-[0_10px_22px_rgba(49,92,69,0.22)] transition-all duration-300 hover:bg-[#274A38] sm:px-7">
-              Our best team
-            </button>
-
-            <button className="rounded-full px-5 py-2.5 text-sm font-semibold text-black/70 transition hover:bg-white/45 hover:text-black sm:px-7 dark:text-[#F8EBCF]/75 dark:hover:bg-white/10 dark:hover:text-[#F8EBCF]">
-              Our Educators
-            </button>
-
-            <button className="rounded-full px-5 py-2.5 text-sm font-semibold text-black/70 transition hover:bg-white/45 hover:text-black sm:px-7 dark:text-[#F8EBCF]/75 dark:hover:bg-white/10 dark:hover:text-[#F8EBCF]">
-              Our Partnerships
-            </button>
+            {guideTabs.map((tab) => (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => setActiveTab(tab.value)}
+                aria-pressed={activeTab === tab.value}
+                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 sm:px-7 ${
+                  activeTab === tab.value
+                    ? "bg-[#315C45] text-[#FFF8E6] shadow-[0_10px_22px_rgba(49,92,69,0.22)] hover:bg-[#274A38]"
+                    : "text-black/70 hover:bg-white/45 hover:text-black dark:text-[#F8EBCF]/75 dark:hover:bg-white/10 dark:hover:text-[#F8EBCF]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
           <div className="grid items-center gap-8 lg:grid-cols-[2.7fr_1fr]">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {guides.map((member) => (
+              {visibleGuides.map((member) => (
                 <Link
                   key={member.slug}
                   href={`/about/guides/${member.slug}`}
@@ -89,13 +110,13 @@ export default function TeamSection() {
             <div className="flex items-center lg:pl-6">
               <div>
                 <h3 className="mb-4 font-serif text-3xl font-semibold leading-tight text-[#2E2118] lg:text-4xl dark:text-[#F8EBCF]">
-                  Guided learning, personal attention.
+                  {activeTabLabel}
                 </h3>
 
                 <p className="mb-6 text-base leading-8 text-black/72 dark:text-[#F8EBCF]/72">
-                  Our mentors bring together subject clarity, skill practice and
-                  value-rooted guidance so every learner feels seen, challenged
-                  and supported through the journey.
+                  Explore the people and partners who support Chandogya through
+                  mentorship, skill practice, guided programs and learning
+                  environments.
                 </p>
 
                 <Link

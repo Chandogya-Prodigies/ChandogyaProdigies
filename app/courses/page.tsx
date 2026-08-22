@@ -10,7 +10,8 @@ import {
   UserRound,
   Video,
 } from "lucide-react";
-import { courses, type CourseType } from "@/lib/courses";
+import type { CourseType } from "@/lib/courses";
+import { getPublicCourses } from "@/lib/course-service";
 
 type CoursesPageProps = {
   searchParams: Promise<{ type?: string }>;
@@ -30,10 +31,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
   const params = await searchParams;
   const selectedType =
     params.type === "paid" || params.type === "free" ? params.type : "all";
-  const visibleCourses =
-    selectedType === "all"
-      ? courses
-      : courses.filter((course) => course.type === selectedType);
+  const visibleCourses = await getPublicCourses(selectedType);
 
   return (
     <main className="bg-[#FFF8E6] text-[#201711] dark:bg-[#160C07] dark:text-[#F8EBCF]">

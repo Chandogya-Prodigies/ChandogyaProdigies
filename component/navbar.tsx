@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { signOut, useSession } from "next-auth/react";
 import {
   ArrowRight,
   BookOpen,
@@ -181,6 +182,7 @@ const menuTriggers: Array<{ key: MenuKey; label: string }> = [
 export default function Navbar() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
+  const { data: session } = useSession();
   const headerRef = useRef<HTMLElement>(null);
   const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -325,13 +327,32 @@ export default function Navbar() {
             <Moon className="h-5 w-5 dark:hidden" />
           </button>
 
-          <Link
-            href="/login"
-            className="hidden h-10 items-center gap-2 rounded-md px-3 text-sm font-semibold text-[#3C291C] transition hover:bg-white/25 lg:flex dark:text-[#E9D5B7] dark:hover:bg-white/10"
-          >
-            <User className="h-4 w-4" />
-            Sign in
-          </Link>
+          {session?.user ? (
+            <>
+              <Link
+                href={session.user.role === "admin" ? "/admin" : "/dashboard"}
+                className="hidden h-10 items-center gap-2 rounded-md px-3 text-sm font-semibold text-[#3C291C] transition hover:bg-white/25 lg:flex dark:text-[#E9D5B7] dark:hover:bg-white/10"
+              >
+                <User className="h-4 w-4" />
+                {session.user.role === "admin" ? "Admin" : "Dashboard"}
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="hidden h-10 items-center rounded-md px-3 text-sm font-semibold text-[#3C291C] transition hover:bg-white/25 lg:flex dark:text-[#E9D5B7] dark:hover:bg-white/10"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden h-10 items-center gap-2 rounded-md px-3 text-sm font-semibold text-[#3C291C] transition hover:bg-white/25 lg:flex dark:text-[#E9D5B7] dark:hover:bg-white/10"
+            >
+              <User className="h-4 w-4" />
+              Sign in
+            </Link>
+          )}
 
           <button
             type="button"
@@ -520,20 +541,30 @@ export default function Navbar() {
             ))}
 
             <div className="mt-3 grid grid-cols-2 gap-3 border-t border-[#DFC69E] pt-4 dark:border-[#5E432B]">
+              {session?.user ? (
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="flex h-11 items-center justify-center gap-2 rounded-md border border-[#DFC69E] text-sm font-bold text-[#2E2118] dark:border-[#5E432B] dark:text-[#F8EBCF]"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={closeNavigation}
+                  className="flex h-11 items-center justify-center gap-2 rounded-md border border-[#DFC69E] text-sm font-bold text-[#2E2118] dark:border-[#5E432B] dark:text-[#F8EBCF]"
+                >
+                  <User className="h-4 w-4" />
+                  Sign in
+                </Link>
+              )}
               <Link
-                href="/login"
-                onClick={closeNavigation}
-                className="flex h-11 items-center justify-center gap-2 rounded-md border border-[#DFC69E] text-sm font-bold text-[#2E2118] dark:border-[#5E432B] dark:text-[#F8EBCF]"
-              >
-                <User className="h-4 w-4" />
-                Sign in
-              </Link>
-              <Link
-                href="/courses"
+                href={session?.user ? "/dashboard" : "/courses"}
                 onClick={closeNavigation}
                 className="flex h-11 items-center justify-center gap-2 rounded-md bg-[#315C45] px-3 text-sm font-bold text-white"
               >
-                Explore Courses
+                {session?.user ? "Dashboard" : "Explore Courses"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

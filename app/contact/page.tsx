@@ -30,16 +30,55 @@ const orbitPeople = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitted(false);
+    setErrorMessage("");
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      firstName: String(formData.get("firstName") ?? ""),
+      lastName: String(formData.get("lastName") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      reason: String(formData.get("reason") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Please check the details and try again.");
+      }
+
+      event.currentTarget.reset();
+      setSubmitted(true);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <main className="bg-[#F7F1EA] px-4 py-8 text-[#2A211B] dark:bg-[#160C07] dark:text-[#F8EBCF] sm:px-6 lg:px-8">
-      <section className="mx-auto grid min-h-[calc(100svh-9rem)] max-w-7xl overflow-hidden rounded-[28px] border border-[#E1D4C8] bg-[#FFFDF7] shadow-[0_24px_80px_rgba(64,45,30,0.1)] dark:border-[#D4A72C]/16 dark:bg-[#21130C] lg:grid-cols-[0.78fr_1.22fr]">
-        <aside className="relative min-h-[430px] overflow-hidden border-b border-[#E1D4C8] bg-[#F8E7CF] p-7 dark:border-[#D4A72C]/16 dark:bg-[#2A1910] lg:min-h-full lg:border-b-0 lg:border-r">
+      <section className="mx-auto grid min-h-[calc(100svh-9rem)] max-w-7xl overflow-hidden rounded-[22px] border border-[#E1D4C8] bg-[#FFFDF7] shadow-[0_24px_80px_rgba(64,45,30,0.1)] dark:border-[#D4A72C]/16 dark:bg-[#21130C] sm:rounded-[28px] lg:grid-cols-[0.78fr_1.22fr]">
+        <aside className="relative min-h-[360px] overflow-hidden border-b border-[#E1D4C8] bg-[#F8E7CF] p-6 dark:border-[#D4A72C]/16 dark:bg-[#2A1910] sm:min-h-[430px] sm:p-7 lg:min-h-full lg:border-b-0 lg:border-r">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_24%,rgba(255,255,255,0.72),transparent_22%),radial-gradient(circle_at_68%_78%,rgba(233,150,47,0.2),transparent_28%)] dark:bg-[radial-gradient(circle_at_30%_24%,rgba(255,255,255,0.08),transparent_22%),radial-gradient(circle_at_68%_78%,rgba(212,167,44,0.13),transparent_28%)]" />
 
           <Link
@@ -68,9 +107,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="absolute left-1/2 top-[48%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/16" />
-          <div className="absolute left-1/2 top-[48%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/18" />
-          <div className="absolute left-1/2 top-[48%] h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/20" />
+          <div className="absolute left-1/2 top-[47%] h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/16 sm:h-[520px] sm:w-[520px]" />
+          <div className="absolute left-1/2 top-[47%] h-[290px] w-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/18 sm:h-[390px] sm:w-[390px]" />
+          <div className="absolute left-1/2 top-[47%] h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C18A4A]/20 sm:h-[250px] sm:w-[250px]" />
 
           {orbitPeople.map((person) => (
             <div
@@ -87,7 +126,7 @@ export default function ContactPage() {
             </div>
           ))}
 
-          <div className="relative z-10 mt-[300px] max-w-sm rounded-[22px] bg-[#FFFDF7]/82 p-5 shadow-[0_18px_48px_rgba(64,45,30,0.1)] backdrop-blur-md dark:bg-[#160C07]/72">
+          <div className="relative z-10 mt-[210px] max-w-sm rounded-[22px] bg-[#FFFDF7]/82 p-5 shadow-[0_18px_48px_rgba(64,45,30,0.1)] backdrop-blur-md dark:bg-[#160C07]/72 sm:mt-[300px]">
             <p className="font-serif text-2xl font-semibold">
               We guide before you decide.
             </p>
@@ -115,7 +154,7 @@ export default function ContactPage() {
           </div>
         </aside>
 
-        <section className="p-6 sm:p-8 lg:p-14">
+        <section className="p-5 sm:p-8 lg:p-14">
           <div className="mx-auto max-w-3xl">
             <p className="font-serif text-sm font-semibold uppercase tracking-[0.28em] text-[#C18A4A] dark:text-[#D4A72C]">
               Contact Us
@@ -230,17 +269,24 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#315C45] px-7 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_32px_rgba(49,92,69,0.22)] transition hover:bg-[#274B38]"
+                disabled={submitting}
+                className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#315C45] px-7 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_32px_rgba(49,92,69,0.22)] transition hover:bg-[#274B38] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Send Message
+                {submitting ? "Sending..." : "Send Message"}
                 <Send className="h-4 w-4" />
               </button>
+
+              {errorMessage ? (
+                <p className="rounded-2xl border border-red-500/20 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700 dark:border-red-400/20 dark:bg-red-950/20 dark:text-red-200">
+                  {errorMessage}
+                </p>
+              ) : null}
 
               {submitted ? (
                 <p className="flex items-start gap-3 rounded-2xl border border-[#315C45]/20 bg-[#EEF5EE] px-4 py-3 text-sm leading-6 text-[#315C45] dark:border-[#D4A72C]/18 dark:bg-[#160C07] dark:text-[#D4A72C]">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
-                  Thank you. Your message preview has been received. We can
-                  connect this form to email or database next.
+                  Thank you. Your message has been saved and our team can
+                  follow up from the dashboard.
                 </p>
               ) : null}
             </form>

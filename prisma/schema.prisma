@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String?
+  email        String   @unique
+  username     String?  @unique
+  passwordHash String
+  role         String   @default("student")
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  email     String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([email])
+}
+
+model Course {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  type        String         @default("paid")
+  category    String         @default("General")
+  ageGroup    String?
+  difficulty  String         @default("Beginner")
+  level       String
+  duration    String
+  hours       String
+  mentor      String
+  price       String
+  priceAmountPaise Int       @default(0)
+  discountLabel String?
+  image       String
+  previewVideoUrl String?
+  description String
+  published   Boolean        @default(false)
+  featured    Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  lessons     CourseLesson[]
+}
+
+model CourseLesson {
+  id        String   @id @default(cuid())
+  courseId  String
+  title     String
+  duration  String
+  summary   String
+  videoUrl  String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String?
+  email     String
+  phone     String?
+  reason    String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model Enrollment {
+  id          String   @id @default(cuid())
+  userEmail   String
+  courseSlug  String
+  courseTitle String
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userEmail, courseSlug])
+}
+
+model PaymentOrder {
+  id              String   @id @default(cuid())
+  userEmail       String
+  courseSlug      String
+  courseTitle     String
+  amountPaise     Int
+  currency        String   @default("INR")
+  provider        String   @default("razorpay")
+  providerOrderId String?
+  providerPaymentId String?
+  providerSignature String?
+  status          String   @default("created")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorEmail String
+  action    String
+  entity    String
+  entityId  String?
+  details   String?
+  createdAt DateTime @default(now())
+
+  @@index([actorEmail])
+  @@index([entity])
+}

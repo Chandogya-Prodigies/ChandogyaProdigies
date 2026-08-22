@@ -119,9 +119,12 @@ export default function LovedCoursesSection() {
           >
             {courses.map((course) => (
               <SwiperSlide key={course.slug} className="h-auto">
-                <Link href={`/courses/${course.slug}`} className="group block h-full">
-                  <article className="flex h-full flex-col overflow-hidden rounded-md border border-[#FFF9EE]/65 bg-[#FFFDF7]/92 shadow-[0_14px_34px_rgba(95,52,8,0.14)] backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[#315C45]/35 group-hover:shadow-[0_20px_48px_rgba(95,52,8,0.2)] dark:border-[#D4A72C]/18 dark:bg-[#21130C]/86 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)]">
-                    <div className="relative h-[132px] overflow-hidden">
+                <Link
+                  href={`/courses/${course.slug}`}
+                  className="group block h-full"
+                >
+                  <article className="flex h-full min-h-[440px] flex-col overflow-hidden rounded-md border border-[#FFF9EE]/65 bg-[#FFFDF7]/92 shadow-[0_14px_34px_rgba(95,52,8,0.14)] backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[#315C45]/35 group-hover:shadow-[0_20px_48px_rgba(95,52,8,0.2)] dark:border-[#D4A72C]/18 dark:bg-[#21130C]/86 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)]">
+                    <div className="relative h-[138px] shrink-0 overflow-hidden">
                       <Image
                         src={course.image}
                         alt={course.title}
@@ -137,13 +140,13 @@ export default function LovedCoursesSection() {
                     </div>
 
                     <div className="flex flex-1 flex-col p-4">
-                      <h3 className="font-serif text-lg font-semibold leading-tight text-[#2E2118] dark:text-[#F8EBCF]">
+                      <h3 className="min-h-[68px] font-serif text-lg font-semibold leading-tight text-[#2E2118] dark:text-[#F8EBCF]">
                         {course.title}
                       </h3>
 
-                      <div className="mt-4 grid grid-cols-3 gap-2 border-y border-[#D4A72C]/18 py-3 text-[#6B5646] dark:border-[#D4A72C]/14 dark:text-[#CDBB9E]">
+                      <div className="mt-3 grid grid-cols-3 gap-2 border-y border-[#D4A72C]/18 py-3 text-[#6B5646] dark:border-[#D4A72C]/14 dark:text-[#CDBB9E]">
                         <div className="min-w-0">
-                          <div className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
+                          <div className="flex min-h-[18px] items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
                             <Clock className="h-3.5 w-3.5" />
                             Time
                           </div>
@@ -153,7 +156,7 @@ export default function LovedCoursesSection() {
                         </div>
 
                         <div className="min-w-0">
-                          <div className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
+                          <div className="flex min-h-[18px] items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
                             <Heart className="h-3.5 w-3.5" />
                             Likes
                           </div>
@@ -163,7 +166,7 @@ export default function LovedCoursesSection() {
                         </div>
 
                         <div className="min-w-0">
-                          <div className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
+                          <div className="flex min-h-[18px] items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[#C96F1A] dark:text-[#D4A72C]">
                             <Users className="h-3.5 w-3.5" />
                             Joined
                           </div>
@@ -173,12 +176,12 @@ export default function LovedCoursesSection() {
                         </div>
                       </div>
 
-                      <div className="mt-3 flex items-start justify-between gap-3">
-                        <div>
+                      <div className="mt-3 flex min-h-[58px] items-start justify-between gap-3">
+                        <div className="min-w-0">
                           <p className="text-sm font-semibold text-[#2E2118] dark:text-[#F8EBCF]">
                             {course.mentor}
                           </p>
-                          <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-[#6B5646] dark:text-[#CDBB9E]">
+                          <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-[#6B5646] dark:text-[#CDBB9E]">
                             <span>{course.rating}</span>
                             <div className="flex text-[#D4A72C]">
                               {Array.from({ length: 5 }).map((_, index) => (
@@ -198,7 +201,7 @@ export default function LovedCoursesSection() {
                         </div>
                       </div>
 
-                      <span className="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-[#315C45] px-4 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(49,92,69,0.18)] transition group-hover:bg-[#274B38]">
+                      <span className="mt-auto inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-[#315C45] px-4 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(49,92,69,0.18)] transition group-hover:bg-[#274B38]">
                         Enroll Now
                         <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                       </span>
